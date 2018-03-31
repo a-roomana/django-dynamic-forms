@@ -3,8 +3,15 @@ from __future__ import unicode_literals
 
 import json
 from collections import OrderedDict
+from distutils.version import StrictVersion
+from django import get_version
 
-from django.core.urlresolvers import reverse
+django_version = get_version()
+if StrictVersion(django_version) >= StrictVersion('2.0'):
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
+
 from django.db import models
 from django.db.transaction import atomic
 from django.template.defaultfilters import slugify
